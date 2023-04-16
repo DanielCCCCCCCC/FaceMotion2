@@ -1,7 +1,4 @@
 ## Detección de emociones en tiempo real ##
-## SISTEMAS INTELIGENTES ##
-## https://www.youtube.com/channel/UCr_dJOULDvSXMHA1PSHy2rg
-## David Revelo Luna
 
 # Import de librerias
 from tensorflow.keras.applications.imagenet_utils import preprocess_input
@@ -17,7 +14,7 @@ time_actualframe = 0
 time_prevframe = 0
 
 # Tipos de emociones del detector
-classes = ['angry','disgust','fear','happy','neutral','sad','surprise']
+classes = ['enojo','disgusto','miedo','feliz','neutral','triste','sorprendido']
 
 # Cargamos el  modelo de detección de rostros
 prototxtPath = r"face_detector\deploy.prototxt"
@@ -88,12 +85,14 @@ while True:
 	for (box, pred) in zip(locs, preds):
 		
 		(Xi, Yi, Xf, Yf) = box
-		(angry,disgust,fear,happy,neutral,sad,surprise) = pred
+
+		(enojo,disgusto,miedo,feliz,neutral,triste,sorprendido) = pred
+
 
 
 		label = ''
 		# Se agrega la probabilidad en el label de la imagen
-		label = "{}: {:.0f}%".format(classes[np.argmax(pred)], max(angry,disgust,fear,happy,neutral,sad,surprise) * 100)
+		label = "{}: {:.0f}%".format(classes[np.argmax(pred)], max(enojo,disgusto,miedo,feliz,neutral,triste,sorprendido) * 100)
 
 		cv2.rectangle(frame, (Xi, Yi-40), (Xf, Yi), (255,0,0), -1)
 		cv2.putText(frame, label, (Xi+5, Yi-15),cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
